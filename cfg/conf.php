@@ -5,12 +5,12 @@
 
 [main]
 ; (optional) set a project name to be displayed on the website
-; name = "PrivateBin"
+name = "PrivateLinkShare"
 
 ; The full URL, with the domain name and directories that point to the
 ; PrivateBin files, including an ending slash (/). This URL is essential to
 ; allow Opengraph images to be displayed on social networks.
-; basepath = "https://privatebin.example.com/"
+basepath = "https://privatelinkshare.com/"
 
 ; enable or disable the discussion feature, defaults to true
 discussion = true
@@ -27,7 +27,7 @@ opendiscussion = false
 password = true
 
 ; enable or disable the file upload feature, defaults to false
-fileupload = false
+fileupload = true
 
 ; preselect the burn-after-reading feature, defaults to false
 burnafterreadingselected = false
@@ -35,6 +35,9 @@ burnafterreadingselected = false
 ; which display mode to preselect by default, defaults to "plaintext"
 ; make sure the value exists in [formatter_options]
 defaultformatter = "plaintext"
+
+; enable of disable the display of the formatter selection menu, defaults to true
+showtemplates = false
 
 ; (optional) set a syntax highlighting theme, as found in css/prettify/
 ; syntaxhighlightingtheme = "sons-of-obsidian"
@@ -79,20 +82,29 @@ languageselection = false
 
 ; set the language your installs defaults to, defaults to English
 ; if this is set and language selection is disabled, this will be the only language
-; languagedefault = "en"
+languagedefault = "sk"
 
 ; (optional) URL shortener address to offer after a new paste is created.
 ; It is suggested to only use this with self-hosted shorteners as this will leak
 ; the pastes encryption key.
 ; urlshortener = "https://shortener.example.com/api?link="
 
+; enable or disable the clone feature, defaults to true
+clone = false
+
+; enable or disable the raw text feature, defaults to true
+rawtext = false
+
+; enable or disable the save paste feature, defaults to true
+savepaste = false
+
 ; (optional) Let users create a QR code for sharing the paste URL with one click.
 ; It works both when a new paste is created and when you view a paste.
-; qrcode = true
+qrcode = false
 
 ; (optional) Let users send an email sharing the paste URL with one click.
 ; It works both when a new paste is created and when you view a paste.
-; email = true
+email = false
 
 ; (optional) IP based icons are a weak mechanism to detect if a comment was from
 ; a different user when the same username was used in a comment. It might get
@@ -100,7 +112,7 @@ languageselection = false
 ; SHA512 HMAC rainbow table is generated for all (relevant) IPs.
 ; Can be set to one these values:
 ; "none" / "identicon" (default) / "jdenticon" / "vizhash".
-; icon = "none"
+icon = "none"
 
 ; Content Security Policy headers allow a website to restrict what sources are
 ; allowed to be accessed in its context. You need to change this if you added

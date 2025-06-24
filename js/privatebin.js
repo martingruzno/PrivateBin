@@ -1441,6 +1441,11 @@ jQuery.PrivateBin = (function($, RawDeflate) {
          *                            force a data reload. Default: true
          * @return string
          */
+
+
+
+        // THIS IS SOMETHING
+
         me.getPasteData = function(callback, useCache)
         {
             // use cache if possible/allowed
@@ -2110,7 +2115,7 @@ jQuery.PrivateBin = (function($, RawDeflate) {
         {
             I18n._(
                 $('#pastelink'),
-                'Your paste is <a id="pasteurl" href="%s">%s</a> <span id="copyhint">(Hit <kbd>Ctrl</kbd>+<kbd>c</kbd> to copy)</span>',
+                'Váš link je <a id="pasteurl" href="%s">%s</a> <span id="copyhint">(skopírujte stlačením <kbd>Ctrl</kbd>+<kbd>c</kbd>/<kbd>Cmd</kbd>+<kbd>c</kbd>)</span>',
                 url, url
             );
             // save newly created element
@@ -2120,7 +2125,7 @@ jQuery.PrivateBin = (function($, RawDeflate) {
 
             // delete link
             $('#deletelink').attr('href', deleteUrl);
-            I18n._($('#deletelink span').not('.glyphicon').first(), 'Delete data');
+            I18n._($('#deletelink span').not('.glyphicon').first(), 'Permanentne odstrániť tento link');
 
             // enable shortener button
             $shortenButton.removeClass('buttondisabled');
@@ -5524,6 +5529,12 @@ jQuery.PrivateBin = (function($, RawDeflate) {
                         DiscussionViewer.finishDiscussion();
                     }
 
+                    // generate delete link and show delete button
+                    const baseUri   = Helper.baseUri() + '?',
+                          deleteUrl = baseUri + 'pasteid=' + paste.id + '&deletetoken=' + paste.deletetoken;
+                    $('#pastepagedeletelink').attr('href', deleteUrl);
+                    I18n._($('#pastepagedeletelink span').not('.glyphicon').first(), 'Permanentne odstrániť tento link');
+                    $('#pastepage').removeClass('hidden');
                 })
                 .catch((err) => {
                     // wait for the user to type in the password,
@@ -5670,7 +5681,7 @@ jQuery.PrivateBin = (function($, RawDeflate) {
         me.showKeyboardShortcutHint = function () {
             I18n._(
                 shortcutHint,
-                'To copy paste press on the copy button or use the clipboard shortcut <kbd>Ctrl</kbd>+<kbd>c</kbd>/<kbd>Cmd</kbd>+<kbd>c</kbd>'
+                'Ak chcete kopírovať text, použite klávesovú skratku <kbd>Ctrl</kbd>+<kbd>c</kbd>/<kbd>Cmd</kbd>+<kbd>c</kbd> alebo stlačte tlačidlo na kopírovanie'
             );
         };
 

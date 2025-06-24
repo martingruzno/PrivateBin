@@ -1,0 +1,14 @@
+services:
+  web:
+    image: privatebin:v1.0.0
+    build: .
+    restart: unless-stopped
+    read_only: true
+    user: "65534:82"  # Run the container with the UID:GID of your Docker user
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - ./privatebin-data:/srv/data
+      # For developments
+      # - ./tpl:/srv/tpl
+      # - ./lib:/srv/lib

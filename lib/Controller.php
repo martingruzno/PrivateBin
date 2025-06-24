@@ -27,7 +27,7 @@ class Controller
      *
      * @const string
      */
-    const VERSION = '1.7.6';
+    const VERSION = '1.0.0';
 
     /**
      * minimal required PHP version
@@ -383,6 +383,8 @@ class Controller
             $paste = $this->_model->getPaste($dataid);
             if ($paste->exists()) {
                 $data = $paste->get();
+                $data['deletetoken'] = $paste->getDeleteToken();
+
                 if (array_key_exists('salt', $data['meta'])) {
                     unset($data['meta']['salt']);
                 }
@@ -468,6 +470,7 @@ class Controller
         $page->assign('SYNTAXHIGHLIGHTINGTHEME', $this->_conf->getKey('syntaxhighlightingtheme'));
         $page->assign('FORMATTER', $formatters);
         $page->assign('FORMATTERDEFAULT', $this->_conf->getKey('defaultformatter'));
+        $page->assign('SHOWTEMPLATES', $this->_conf->getKey('showtemplates'));
         $page->assign('INFO', I18n::_(str_replace("'", '"', $this->_conf->getKey('info'))));
         $page->assign('NOTICE', I18n::_($this->_conf->getKey('notice')));
         $page->assign('BURNAFTERREADINGSELECTED', $this->_conf->getKey('burnafterreadingselected'));
@@ -476,6 +479,9 @@ class Controller
         $page->assign('ZEROBINCOMPATIBILITY', $this->_conf->getKey('zerobincompatibility'));
         $page->assign('LANGUAGESELECTION', $languageselection);
         $page->assign('LANGUAGES', I18n::getLanguageLabels(I18n::getAvailableLanguages()));
+        $page->assign('CLONE', $this->_conf->getKey('clone'));
+        $page->assign('RAWTEXT', $this->_conf->getKey('rawtext'));
+        $page->assign('SAVEPASTE', $this->_conf->getKey('savepaste'));
         $page->assign('TEMPLATESELECTION', $templateselection);
         $page->assign('TEMPLATES', TemplateSwitcher::getAvailableTemplates());
         $page->assign('EXPIRE', $expire);
@@ -486,7 +492,7 @@ class Controller
         $page->assign('HTTPWARNING', $this->_conf->getKey('httpwarning'));
         $page->assign('HTTPSLINK', 'https://' . $this->_request->getHost() . $this->_request->getRequestUri());
         $page->assign('COMPRESSION', $this->_conf->getKey('compression'));
-        $page->assign('SRI', $this->_conf->getSection('sri'));
+        $page->assign('SRI', $this->_conf->getSection('sri'));        
         $page->draw(TemplateSwitcher::getTemplate());
     }
 

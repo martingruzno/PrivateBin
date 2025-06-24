@@ -55,15 +55,27 @@ body.loading {
 	padding: 3px 20px 3px 40px;
 }
 
+.main-page-padding {
+	padding-top: 11px !important;
+	padding-bottom: 11px !important;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.main-page-margin {
+	margin-top: 5px !important;
+	margin-bottom: 0;
+}
+
 .dropdown-menu > li > div {
 	color: #777;
 	padding: 3px 20px;
 	cursor: default;
 }
 
-.pull-right .dropdown-menu {
+/* .pull-right .dropdown-menu {
 	margin-left: -5em;
-}
+} */
 
 #language {
 	margin-right: 8px;

@@ -1,12 +1,12 @@
 # Ignore server files for safety
 .htaccess
 .htpasswd
-cfg/*
 !cfg/conf.sample.php
 !cfg/.htaccess
 
 # Ignore data/
 /data/
+/privatebin-data/
 
 # Ignore PhpDoc
 doc/*
