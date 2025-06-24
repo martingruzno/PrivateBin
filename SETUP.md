@@ -26,6 +26,7 @@ Create a non-root user:
 ```bash
 adduser deployuser
 usermod -aG sudo deployuser
+usermod -aG docker deployuser
 ```
 
 Switch the logged in user to `deployuser`
@@ -37,13 +38,30 @@ Switch the logged in user to `deployuser`
 Generate SSH Key:
 
 ```bash
-ssh-keygen -t ed25519
+ssh-keygen -t ed25519 -C "email@email.com" -f ~/.ssh/GitHub
+```
+
+Add SSH key to the SSH agent:
+
+```bash
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/GitHub
+```
+
+Create ssh `~/.ssh/config` file and add the correct configuration:
+
+```bash
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/GitHub
+  AddKeysToAgent yes
 ```
 
 Add SSH Key to GitHub:
 
 ```bash
-cat ~/.ssh/id_ed25519.pub
+cat ~/.ssh/GitHub.pub
 ```
 
 Go to GitHub:
