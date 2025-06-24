@@ -9,6 +9,5 @@ services:
       - "127.0.0.1:8080:8080"
     volumes:
       - ./privatebin-data:/srv/data
-      # For developments
       - ./tpl:/srv/tpl
       - ./lib:/srv/lib
