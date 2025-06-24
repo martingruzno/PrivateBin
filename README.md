@@ -1,4 +1,4 @@
-# [![PrivateLinkShare](https://cdn.rawgit.com/PrivateBin/assets/master/images/preview/logoSmall.png)](https://privatebin.info/)
+# [![PrivateLinkShare](https://github.com/martingruzno/PrivateBin/blob/master/img/logo-xl.png?raw=true)](https://github.com/martingruzno/PrivateBin/)
 
 *Current version: 1.0.0*
 
