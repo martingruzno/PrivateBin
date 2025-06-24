@@ -1,6 +1,6 @@
 services:
   web:
-    image: privatebin:v1.0.0
+    image: ghcr.io/martingruzno/privatebin:v1.0.1
     build: .
     restart: unless-stopped
     read_only: true
@@ -10,5 +10,5 @@ services:
     volumes:
       - ./privatebin-data:/srv/data
       # For developments
-      # - ./tpl:/srv/tpl
-      # - ./lib:/srv/lib
+      - ./tpl:/srv/tpl
+      - ./lib:/srv/lib

@@ -37,16 +37,16 @@ COPY --chown=${UID}:${GID} . /var/www/
 # Move required directories to /srv and update index.php
 # ===================================================================
 # PROD code (copies also tpl and lib directory)
-RUN cd /var/www \
-    && mv bin cfg lib tpl vendor /srv \
-    && sed -i "s#define('PATH', '');#define('PATH', '/srv/');#" index.php
+# RUN cd /var/www \
+    # && mv bin cfg lib tpl vendor /srv \
+    # && sed -i "s#define('PATH', '');#define('PATH', '/srv/');#" index.php
 # -------------------------------------------------------------------
 # DEV code (copies only bin, cfg and vendor directories - lib and tpl are mounted as volumes)
-# RUN cd /var/www \
-#     && mv bin cfg vendor /srv \
-#     && mkdir /srv/tpl \
-#     && mkdir /srv/lib \
-#     && sed -i "s#define('PATH', '');#define('PATH', '/srv/');#" index.php
+RUN cd /var/www \
+    && mv bin cfg vendor /srv \
+    && mkdir /srv/tpl \
+    && mkdir /srv/lib \
+    && sed -i "s#define('PATH', '');#define('PATH', '/srv/');#" index.php
 # ===================================================================
 
 COPY etc/ /etc/

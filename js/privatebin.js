@@ -2942,6 +2942,8 @@ jQuery.PrivateBin = (function($, RawDeflate) {
             attachmentsData = [],
             files,
             $fileInput,
+            $fileList,
+            $addFileBtn,
             $dragAndDropFileNames,
             $dropzone;
 
@@ -3466,8 +3468,7 @@ jQuery.PrivateBin = (function($, RawDeflate) {
          * @name   AttachmentViewer.init
          * @function
          */
-        me.init = function()
-        {
+        me.init = function() {
             $attachment = $('#attachment');
             $dragAndDropFileNames = $('#dragAndDropFileName');
             $dropzone = $('#dropzone');
@@ -5381,6 +5382,11 @@ jQuery.PrivateBin = (function($, RawDeflate) {
                 // version 2 paste
                 const pasteMessage = JSON.parse(pastePlain);
                 if (pasteMessage.hasOwnProperty('attachment') && pasteMessage.hasOwnProperty('attachment_name')) {
+
+                    console.log('attachments are being removed')
+                    $('#attachment').empty(); // Clear old attachments
+                    console.log('attachments should be removed now')
+
                     if (Array.isArray(pasteMessage.attachment) && Array.isArray(pasteMessage.attachment_name)) {
                         pasteMessage.attachment.forEach((attachment, key) => {
                             const attachment_name = pasteMessage.attachment_name[key];

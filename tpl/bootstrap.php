@@ -295,9 +295,6 @@ $isPage = substr($template, -5) === '-page';
 				<div id="remainingtime" role="alert" class="hidden alert alert-info">
 					<span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
 				</div>
-				<?php if ($FILEUPLOAD) : ?>
-					<div id="attachment" class="hidden"></div>
-				<?php endif; ?>
 				<div id="status" role="alert" class="clearfix alert alert-<?php echo (bool)$ISDELETED ? 'success' : 'info'; echo empty($STATUS) ? ' hidden' : '' ?>">
 					<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
 					<?php echo I18n::encode($STATUS), PHP_EOL; ?>
@@ -463,7 +460,7 @@ $isPage = substr($template, -5) === '-page';
 			<section class="container">
 				<article class="row">
 					<div id="placeholder" class="col-md-12 hidden"><?php echo I18n::_('+++ no paste text +++'); ?></div>
-					<div id="attachmentPreview" class="col-md-12 text-center hidden"></div>
+					<!-- <div id="attachmentPreview" class="col-md-12 text-center hidden"></div> -->
 					<h5 id="copyShortcutHint" class="col-md-12"><small id="copyShortcutHintText"></small></h5>
 					<div id="prettymessage" class="col-md-12 hidden">
 						<button id="prettyMessageCopyBtn">
@@ -472,6 +469,11 @@ $isPage = substr($template, -5) === '-page';
 						</button>
 						<pre id="prettyprint" class="col-md-12 prettyprint linenums:1"></pre>
 					</div>
+
+					<?php if ($FILEUPLOAD) : ?>
+						<div id="attachment" class="hidden col-md-12"></div>
+					<?php endif; ?>
+
 					<div id="plaintext" class="col-md-12 hidden"></div>
 					<p class="col-md-12"><textarea id="message" name="message" cols="80" rows="25" tabindex="1" class="form-control hidden"></textarea></p>
 					<p class="col-md-12 checkbox hidden">
@@ -522,7 +524,7 @@ $isPage = substr($template, -5) === '-page';
 					</div>
 					<button id="replybutton" class="btn btn-default btn-sm"><?php echo I18n::_('Post comment'); ?></button>
 				</div>
-				<div id="attachmenttemplate" role="alert" class="attachment hidden alert alert-info">
+				<div id="attachmenttemplate" class="attachment hidden">
 					<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
 					<a class="alert-link"><?php echo I18n::_('Download attachment'); ?></a>
 				</div>
