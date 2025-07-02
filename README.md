@@ -1,6 +1,6 @@
 # [![PrivateLinkShare](https://github.com/martingruzno/PrivateBin/blob/master/img/logo-xl.png?raw=true)](https://github.com/martingruzno/PrivateBin/)
 
-*Current version: 1.0.1*
+*Current version: 1.0.2*
 
 **PrivateBin** is a minimalist, open source online
 [pastebin](https://en.wikipedia.org/wiki/Pastebin)

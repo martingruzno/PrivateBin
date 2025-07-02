@@ -27,7 +27,7 @@ class Controller
      *
      * @const string
      */
-    const VERSION = '1.0.1';
+    const VERSION = '1.0.2';
 
     /**
      * minimal required PHP version
@@ -303,6 +303,10 @@ class Controller
                     $this->_return_message(1, $e->getMessage());
                     return;
                 }
+
+                // here we will send a notification to the users involved in the paste
+                $this->_sendNotificationEmails($paste->getId());
+
                 $this->_return_message(0, $comment->getId());
             } else {
                 $this->_return_message(1, I18n::_('Invalid data.'));
@@ -571,5 +575,72 @@ class Controller
         }
         $result += $other;
         $this->_json = Json::encode($result);
+    }
+
+    private function _sendNotificationEmails($linkId) {
+        try {
+            $jsonPath = '/srv/notifications/notifications.json';
+            $notificationMap = json_decode(file_get_contents($jsonPath), true);
+
+            if (isset($notificationMap[$linkId])) {
+                foreach ($notificationMap[$linkId] as $toEmail) {
+                    $this->_sendNotificationEmail($toEmail);
+                }
+            }            
+        } catch (Exception $e) {
+            error_log('Failed to send notification email: ' . $e->getMessage());
+        }
+    }
+
+    private function _sendNotificationEmail($toEmail) {
+        $apiKey = getenv('MAILERSEND_API_KEY');
+        $fromEmail = getenv('MAILERSEND_DOMAIN');
+        $fromName = 'PrivateLinkShare';
+        $subject = "Nový komentár v PrivateLinkShare vlákne";
+        $text = "Nový komentár bol pridaný do PrivateLinkShare vlákna!\n\nPoznámka: Komentár ani URL vlákna niesú uvedené z bezpečnostných dôvodov";
+        $html = "<p>Nový komentár bol pridaný do <strong>PrivateLinkShare</strong> vlákna!</p><p><em>Poznámka: Komentár ani URL vlákna niesú uvedené z bezpečnostných dôvodov.</em></p>";
+
+        $payload = [
+            'from' => [
+                'email' => $fromEmail,
+                'name' => $fromName,
+            ],
+            'to' => [
+                [
+                    'email' => $toEmail,
+                    'name' => explode('@', $toEmail)[0], // Optional: use part of email as name
+                ]
+            ],
+            'subject' => $subject,
+            'text' => $text,
+            'html' => $html,
+            'personalization' => [
+                [
+                    'email' => $toEmail,
+                    'data' => [
+                        'company' => 'PrivateLinkShare'
+                    ]
+                ]
+            ]
+        ];
+
+        $ch = curl_init('https://api.mailersend.com/v1/email');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $apiKey,
+        ]);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+
+        $response = curl_exec($ch);
+        $error = curl_error($ch);
+        curl_close($ch);
+
+        if ($error) {
+            error_log("MailerSend Error: " . $error);
+        } else {
+            error_log("MailerSend Response: " . $response);
+        }
     }
 }

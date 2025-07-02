@@ -10,7 +10,7 @@ ENV PATH=$PATH:/srv/bin
 RUN \
 # Install dependencies
     apk upgrade --no-cache \
-    && apk add --no-cache gnupg git nginx php84 php84-ctype php84-fpm php84-gd openssl \
+    && apk add --no-cache gnupg git nginx php84 php84-ctype php84-fpm php84-gd openssl php84-curl \
         php84-opcache s6 tzdata php84-iconv php84-pdo_mysql php84-pdo_pgsql php84-openssl php84-simplexml php84-zip \
 # Stabilize php config location
     && mv /etc/php84 /etc/php \

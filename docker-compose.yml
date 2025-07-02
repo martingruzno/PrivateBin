@@ -1,7 +1,8 @@
 services:
   web:
-    image: ghcr.io/martingruzno/privatebin:v1.0.1
-    build: .
+    image: ghcr.io/martingruzno/privatebin:v1.0.2
+    env_file:
+      - ./.env
     restart: unless-stopped
     read_only: true
     user: "65534:82"  # Run the container with the UID:GID of your Docker user
@@ -9,5 +10,6 @@ services:
       - "127.0.0.1:8080:8080"
     volumes:
       - ./privatebin-data:/srv/data
-      - ./tpl:/srv/tpl
-      - ./lib:/srv/lib
+      - ./var:/srv/notifications:ro
+      # - ./tpl:/srv/tpl
+      # - ./lib:/srv/lib
